@@ -1,0 +1,160 @@
+:root {
+  --clr-red: #a01818;
+  --clr-grey: #333333;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* remove default spacing */
+/* force styling of type through styling, rather than elements */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* dark mode user-agent-styles */
+html {
+  color-scheme: dark light;
+}
+
+/* min body height */
+body {
+  min-height: 100vh;
+}
+
+/* responsive images/videos */
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* make headings wrap better */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+  /* max-width: 55ch; */
+}
+
+/*** Utilities ***/
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto auto 1fr 6rem;
+  gap: 1rem;
+}
+
+h1 {
+  background-color: #232222;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.songs-container {
+  border: #c8d86f 1px solid;
+  padding: 1rem;
+  margin-inline: 1rem;
+
+  .song-id {
+    background-color: red;
+  }
+
+  .song-title {
+    background-color: rgb(148, 134, 5);
+  }
+
+  .song-artist {
+    background-color: lime;
+  }
+
+  .song-duration {
+    background-color: brown;
+  }
+}
+
+.artist-name {
+  background-color: rgb(18, 68, 85);
+}
+
+.song-name {
+  background-color: red;
+}
+
+.song-search {
+  background-color: var(--clr-grey);
+  height: 3rem;
+  margin-bottom: 0;
+  padding-left: 1rem;
+  border: none;
+  margin-inline: 1rem;
+}
+
+footer {
+  background-color: black;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+
+  .music-current-song {
+    background-color: red;
+  }
+
+  .music-player-controls {
+    align-self: center;
+    justify-content: center;
+    padding: 0.5rem;
+    display: flex;
+    gap: 3rem;
+
+    button {
+      background-color: transparent;
+      border-radius: 50%;
+      padding: 0.5rem;
+      filter: brightness(50%);
+      transition: all 0.2s ease;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        filter: brightness(100%);
+      }
+    }
+  }
+
+  .music-settings,
+  .artist-namemusic-current-song {
+    background-color: var(--clr-grey);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+}
