@@ -70,8 +70,8 @@ figcaption {
   width: 1px;
 }
 
-.active {
-  background-color: lime;
+.songs-container .song-container.active {
+  border: solid 1px lime;
 }
 
 body {
@@ -87,10 +87,61 @@ h1 {
   padding: 0.5rem;
 }
 
-.songs-container {
-  border: #c8d86f 1px solid;
-  padding: 1rem;
+#song-search {
+  background-color: var(--clr-grey);
+  height: 3rem;
+  margin-bottom: 0;
+  padding-left: 1rem;
+  border: none;
   margin-inline: 1rem;
+}
+
+.songs-container {
+  .song-container {
+    padding-inline: 0 0.5rem;
+    margin-inline: 1rem 0.5rem;
+    border-radius: 5px;
+    border: solid 1px transparent;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+
+    &:hover {
+      filter: brightness(150%);
+      cursor: pointer;
+    }
+
+    .song-duration {
+      display: flex;
+      align-items: center;
+      justify-self: end;
+    }
+  }
+
+  .song-artwork {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+  }
+
+  .name-and-track-container {
+    /* background-color: blueviolet; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1rem;
+
+    & :first-child {
+      /* background-color: rgb(9, 143, 16); */
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    & :last-child {
+      color: #b4b4b4;
+    }
+  }
 
   .song-id {
     background-color: red;
@@ -111,59 +162,6 @@ h1 {
 
 .song-name {
   /* background-color: red; */
-}
-
-#song-search {
-  background-color: var(--clr-grey);
-  height: 3rem;
-  margin-bottom: 0;
-  padding-left: 1rem;
-  border: none;
-  margin-inline: 1rem;
-}
-
-.song-container {
-  /* background-color: rgb(218, 191, 132); */
-  margin-bottom: 1rem;
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-
-  &:hover {
-    filter: brightness(150%);
-    cursor: pointer;
-  }
-
-  .song-duration {
-    /* background-color: brown; */
-    display: flex;
-    align-items: center;
-    justify-self: end;
-  }
-}
-
-.song-artwork {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 5px;
-  margin-right: 0.5rem;
-}
-
-.name-and-track-container {
-  /* background-color: blueviolet; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 1rem;
-
-  & :first-child {
-    /* background-color: rgb(9, 143, 16); */
-    font-size: 1.2rem;
-    font-weight: 400;
-  }
-
-  & :last-child {
-    color: #b4b4b4;
-  }
 }
 
 footer {
