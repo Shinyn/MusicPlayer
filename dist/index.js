@@ -39,11 +39,12 @@ let playList = [
 // How to convert ms to seconds and minutes
 // 1 millisecond = 0.001 seconds
 const convertToSecondsAndMinutes = (duration) => {
-    const minutes = Math.floor(duration / 60);
-    const seconds = duration % 60;
-    return `${minutes}:${seconds}`;
+    console.log(duration);
+    const minutes = Math.floor(duration / 1000 / 60);
+    const seconds = (duration / 1000) % 60;
+    return `${minutes}:${Math.floor(seconds)}`;
 };
-const songsContaier = document.querySelector('.songs-container');
+const songsContainer = document.querySelector('.songs-container');
 // let search = document.querySelector('.song-search');
 const searchInput = document.querySelector('.song-search');
 let searchTerm = '';
@@ -58,18 +59,28 @@ const fetchMusicData = async () => {
     console.log(data);
     //   if (data) {}
     data.results.forEach((item) => {
+        const songContainer = document.createElement('div');
+        songContainer.classList = 'song-container';
+        const nameAndTrack = document.createElement('div');
+        nameAndTrack.classList = 'name-and-track-container';
+        const duration = document.createElement('div');
+        duration.classList = 'song-duration';
+        duration.textContent = `${convertToSecondsAndMinutes(item.trackTimeMillis)}`;
         const artistName = document.createElement('span');
         artistName.classList = 'artist-name';
         artistName.textContent = item.artistName;
         const trackName = document.createElement('span');
         trackName.classList = 'song-name';
-        trackName.textContent = item.trackName ? item.trackName : '--------';
-        // How to add url to this img
+        trackName.textContent = item.trackName;
         const artworkUrl100 = document.createElement('img');
         artworkUrl100.classList = 'song-artwork';
-        artworkUrl100.src = item.artworkUrl100;
-        artworkUrl100.alt = `${artistName} - ${trackName}`;
-        songsContaier?.append(artistName, trackName, artworkUrl100);
+        if (item.artworkUrl100) {
+            artworkUrl100.src = item.artworkUrl100;
+            artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
+        }
+        nameAndTrack.append(trackName, artistName);
+        songContainer?.append(artworkUrl100, nameAndTrack, duration);
+        songsContainer?.append(songContainer);
     });
     //   console.log(data.results[0].artistName);
 };
