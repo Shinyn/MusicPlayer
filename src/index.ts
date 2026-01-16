@@ -51,13 +51,12 @@ let playList: Song[] = [
   },
 ];
 
-// How to convert ms to seconds and minutes
+// Converts ms to seconds and minutes
 // 1 millisecond = 0.001 seconds
 const convertToSecondsAndMinutes = (duration: number) => {
-  //   console.log(duration);
   const minutes = Math.floor(duration / 1000 / 60);
   const seconds = (duration / 1000) % 60;
-  return `${minutes}:${Math.floor(seconds)}`;
+  return `${minutes}:${String(Math.floor(seconds)).padStart(2, '0')}`;
 };
 
 const songsContainer = document.querySelector('.songs-container');
