@@ -39,15 +39,16 @@ let playList = [
 // How to convert ms to seconds and minutes
 // 1 millisecond = 0.001 seconds
 const convertToSecondsAndMinutes = (duration) => {
-    console.log(duration);
+    //   console.log(duration);
     const minutes = Math.floor(duration / 1000 / 60);
     const seconds = (duration / 1000) % 60;
     return `${minutes}:${Math.floor(seconds)}`;
 };
 const songsContainer = document.querySelector('.songs-container');
-// let search = document.querySelector('.song-search');
+// Kopplar sökfältet till searchInput
 const searchInput = document.querySelector('.song-search');
 let searchTerm = '';
+// Sätter värdet på searchTerm till värdet i sökfältet
 searchInput?.addEventListener('input', () => {
     searchTerm = searchInput.value;
 });
@@ -57,31 +58,46 @@ const fetchMusicData = async () => {
     const response = await fetch(`https://itunes.apple.com/search?term=${searchTerm}&media=music&entity=song`);
     const data = await response.json();
     console.log(data);
-    //   if (data) {}
-    data.results.forEach((item) => {
-        const songContainer = document.createElement('div');
-        songContainer.classList = 'song-container';
-        const nameAndTrack = document.createElement('div');
-        nameAndTrack.classList = 'name-and-track-container';
-        const duration = document.createElement('div');
-        duration.classList = 'song-duration';
-        duration.textContent = `${convertToSecondsAndMinutes(item.trackTimeMillis)}`;
-        const artistName = document.createElement('span');
-        artistName.classList = 'artist-name';
-        artistName.textContent = item.artistName;
-        const trackName = document.createElement('span');
-        trackName.classList = 'song-name';
-        trackName.textContent = item.trackName;
-        const artworkUrl100 = document.createElement('img');
-        artworkUrl100.classList = 'song-artwork';
-        if (item.artworkUrl100) {
-            artworkUrl100.src = item.artworkUrl100;
-            artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
-        }
-        nameAndTrack.append(trackName, artistName);
-        songContainer?.append(artworkUrl100, nameAndTrack, duration);
-        songsContainer?.append(songContainer);
-    });
+    // Rensa songsContainer mellan sökningar
+    songsContainer?.replaceChildren();
+    if (data) {
+        data.results.forEach((item) => {
+            const songContainer = document.createElement('div');
+            songContainer.classList = 'song-container';
+            songContainer.addEventListener('click', (e) => {
+                // The closest() method of the Element interface traverses the element
+                // and its parents (heading toward the document root) until it finds a
+                // node that matches the specified CSS selector.
+                const song = e.target.closest('.song-container');
+                if (!song)
+                    return;
+                songsContainer?.querySelectorAll('.song-container.active').forEach((el) => {
+                    el.classList.remove('active');
+                });
+                song.classList.add('active');
+            });
+            const nameAndTrack = document.createElement('div');
+            nameAndTrack.classList = 'name-and-track-container';
+            const duration = document.createElement('div');
+            duration.classList = 'song-duration';
+            duration.textContent = `${convertToSecondsAndMinutes(item.trackTimeMillis)}`;
+            const artistName = document.createElement('span');
+            artistName.classList = 'artist-name';
+            artistName.textContent = item.artistName;
+            const trackName = document.createElement('span');
+            trackName.classList = 'song-name';
+            trackName.textContent = item.trackName;
+            const artworkUrl100 = document.createElement('img');
+            artworkUrl100.classList = 'song-artwork';
+            if (item.artworkUrl100) {
+                artworkUrl100.src = item.artworkUrl100;
+                artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
+            }
+            nameAndTrack.append(trackName, artistName);
+            songContainer?.append(artworkUrl100, nameAndTrack, duration);
+            songsContainer?.append(songContainer);
+        });
+    }
     //   console.log(data.results[0].artistName);
 };
 searchInput?.addEventListener('keydown', (e) => {

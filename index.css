@@ -70,6 +70,10 @@ figcaption {
   width: 1px;
 }
 
+.active {
+  background-color: lime;
+}
+
 body {
   display: grid;
   grid-template-rows: auto auto 1fr 6rem;
@@ -80,6 +84,7 @@ h1 {
   background-color: #232222;
   text-align: center;
   font-size: 3rem;
+  padding: 0.5rem;
 }
 
 .songs-container {
@@ -98,13 +103,6 @@ h1 {
   .song-artist {
     background-color: lime;
   }
-
-  .song-duration {
-    background-color: brown;
-    display: flex;
-    align-items: center;
-    right: 0;
-  }
 }
 
 .artist-name {
@@ -115,7 +113,7 @@ h1 {
   /* background-color: red; */
 }
 
-.song-search {
+#song-search {
   background-color: var(--clr-grey);
   height: 3rem;
   margin-bottom: 0;
@@ -127,7 +125,20 @@ h1 {
 .song-container {
   /* background-color: rgb(218, 191, 132); */
   margin-bottom: 1rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+
+  &:hover {
+    filter: brightness(150%);
+    cursor: pointer;
+  }
+
+  .song-duration {
+    /* background-color: brown; */
+    display: flex;
+    align-items: center;
+    justify-self: end;
+  }
 }
 
 .song-artwork {
@@ -186,7 +197,7 @@ footer {
   }
 
   .music-settings,
-  .artist-namemusic-current-song {
+  .music-current-song {
     background-color: var(--clr-grey);
     display: grid;
     place-items: center;

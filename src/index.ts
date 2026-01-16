@@ -54,7 +54,7 @@ let playList: Song[] = [
 // How to convert ms to seconds and minutes
 // 1 millisecond = 0.001 seconds
 const convertToSecondsAndMinutes = (duration: number) => {
-  console.log(duration);
+  //   console.log(duration);
   const minutes = Math.floor(duration / 1000 / 60);
   const seconds = (duration / 1000) % 60;
   return `${minutes}:${Math.floor(seconds)}`;
@@ -125,11 +125,11 @@ type ItunesResponse = {
   results: ItunesResult[];
 };
 
-// let search = document.querySelector('.song-search');
-
+// Kopplar sökfältet till searchInput
 const searchInput = document.querySelector('.song-search') as HTMLInputElement | null;
 let searchTerm = '';
 
+// Sätter värdet på searchTerm till värdet i sökfältet
 searchInput?.addEventListener('input', () => {
   searchTerm = searchInput.value;
 });
@@ -140,39 +140,56 @@ const fetchMusicData = async () => {
   const data: ItunesResponse = await response.json();
   console.log(data);
 
-  //   if (data) {}
-  data.results.forEach((item) => {
-    const songContainer = document.createElement('div') as HTMLDivElement;
-    songContainer.classList = 'song-container';
+  // Rensa songsContainer mellan sökningar
+  songsContainer?.replaceChildren();
 
-    const nameAndTrack = document.createElement('div') as HTMLDivElement;
-    nameAndTrack.classList = 'name-and-track-container';
+  if (data) {
+    data.results.forEach((item) => {
+      const songContainer = document.createElement('div') as HTMLDivElement;
+      songContainer.classList = 'song-container';
+      songContainer.addEventListener('click', (e) => {
+        // The closest() method of the Element interface traverses the element
+        // and its parents (heading toward the document root) until it finds a
+        // node that matches the specified CSS selector.
+        const song = (e.target as HTMLElement).closest('.song-container');
+        if (!song) return;
 
-    const duration = document.createElement('div') as HTMLDivElement;
-    duration.classList = 'song-duration';
-    duration.textContent = `${convertToSecondsAndMinutes(item.trackTimeMillis)}`;
+        songsContainer?.querySelectorAll('.song-container.active').forEach((el) => {
+          el.classList.remove('active');
+        });
 
-    const artistName = document.createElement('span') as HTMLSpanElement;
-    artistName.classList = 'artist-name';
-    artistName.textContent = item.artistName;
+        song.classList.add('active');
+      });
 
-    const trackName = document.createElement('span') as HTMLSpanElement;
-    trackName.classList = 'song-name';
-    trackName.textContent = item.trackName;
+      const nameAndTrack = document.createElement('div') as HTMLDivElement;
+      nameAndTrack.classList = 'name-and-track-container';
 
-    const artworkUrl100 = document.createElement('img') as HTMLImageElement;
-    artworkUrl100.classList = 'song-artwork';
-    if (item.artworkUrl100) {
-      artworkUrl100.src = item.artworkUrl100;
-      artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
-    }
+      const duration = document.createElement('div') as HTMLDivElement;
+      duration.classList = 'song-duration';
+      duration.textContent = `${convertToSecondsAndMinutes(item.trackTimeMillis)}`;
 
-    nameAndTrack.append(trackName, artistName);
+      const artistName = document.createElement('span') as HTMLSpanElement;
+      artistName.classList = 'artist-name';
+      artistName.textContent = item.artistName;
 
-    songContainer?.append(artworkUrl100, nameAndTrack, duration);
+      const trackName = document.createElement('span') as HTMLSpanElement;
+      trackName.classList = 'song-name';
+      trackName.textContent = item.trackName;
 
-    songsContainer?.append(songContainer);
-  });
+      const artworkUrl100 = document.createElement('img') as HTMLImageElement;
+      artworkUrl100.classList = 'song-artwork';
+      if (item.artworkUrl100) {
+        artworkUrl100.src = item.artworkUrl100;
+        artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
+      }
+
+      nameAndTrack.append(trackName, artistName);
+
+      songContainer?.append(artworkUrl100, nameAndTrack, duration);
+
+      songsContainer?.append(songContainer);
+    });
+  }
 
   //   console.log(data.results[0].artistName);
 };
