@@ -70,8 +70,8 @@ figcaption {
   width: 1px;
 }
 
-.songs-container .song-container.active {
-  border: solid 1px lime;
+.songs-container .song-container.active .song-name {
+  color: rgb(64, 221, 64);
 }
 
 body {
@@ -92,22 +92,23 @@ h1 {
   height: 3rem;
   margin-bottom: 0;
   padding-left: 1rem;
+  border-radius: 5px;
   border: none;
   margin-inline: 1rem;
 }
 
 .songs-container {
   .song-container {
-    padding-inline: 0 0.5rem;
-    margin-inline: 1rem 0.5rem;
+    padding-inline: 0.5rem;
+    padding-block: 0.3rem;
+    margin-inline: 0.5rem;
     border-radius: 5px;
     border: solid 1px transparent;
-    margin-bottom: 1rem;
     display: grid;
     grid-template-columns: auto auto 1fr;
 
     &:hover {
-      filter: brightness(150%);
+      background-color: #333333;
       cursor: pointer;
     }
 
@@ -126,48 +127,36 @@ h1 {
   }
 
   .name-and-track-container {
-    /* background-color: blueviolet; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: 1rem;
 
-    & :first-child {
-      /* background-color: rgb(9, 143, 16); */
+    .song-name {
       font-size: 1.2rem;
       font-weight: 400;
     }
 
-    & :last-child {
+    .artist-name {
       color: #b4b4b4;
     }
   }
-
-  .song-id {
-    background-color: red;
-  }
-
-  .song-title {
-    background-color: rgb(148, 134, 5);
-  }
-
-  .song-artist {
-    background-color: lime;
-  }
-}
-
-.artist-name {
-  /* background-color: rgb(18, 68, 85); */
-}
-
-.song-name {
-  /* background-color: red; */
 }
 
 footer {
   background-color: black;
   display: grid;
+  position: sticky;
+  bottom: 0;
   grid-template-columns: auto 1fr auto;
+
+  .music-settings,
+  .music-current-song {
+    background-color: var(--clr-grey);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
 
   .music-current-song {
     background-color: red;
@@ -192,13 +181,5 @@ footer {
         filter: brightness(100%);
       }
     }
-  }
-
-  .music-settings,
-  .music-current-song {
-    background-color: var(--clr-grey);
-    display: grid;
-    place-items: center;
-    padding: 1rem;
   }
 }
