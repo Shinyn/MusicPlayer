@@ -144,9 +144,35 @@ const fetchMusicData = async () => {
 
   if (data) {
     data.results.forEach((item) => {
+      console.log('this is it', item.previewUrl);
       const songContainer = document.createElement('div') as HTMLDivElement;
       songContainer.classList = 'song-container';
       songContainer.addEventListener('click', (e) => {
+        const musicCurrentSong = document.querySelector('.music-current-song') as HTMLElement;
+        // -------------------v
+        const nameAndTrack = document.createElement('div') as HTMLDivElement;
+        nameAndTrack.classList = 'name-and-track-container';
+
+        const artistName = document.createElement('span') as HTMLSpanElement;
+        artistName.classList = 'artist-name';
+        artistName.textContent = item.artistName;
+
+        const trackName = document.createElement('span') as HTMLSpanElement;
+        trackName.classList = 'song-name';
+        trackName.textContent = item.trackName;
+
+        nameAndTrack.append(trackName, artistName);
+
+        const artworkUrl100 = document.createElement('img') as HTMLImageElement;
+        artworkUrl100.classList = 'song-artwork';
+        if (item.artworkUrl100) {
+          artworkUrl100.src = item.artworkUrl100;
+          artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
+        }
+
+        musicCurrentSong.replaceChildren();
+        musicCurrentSong.append(artworkUrl100, nameAndTrack);
+
         // The closest() method of the Element interface traverses the element
         // and its parents (heading toward the document root) until it finds a
         // node that matches the specified CSS selector.
@@ -182,7 +208,12 @@ const fetchMusicData = async () => {
         artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
       }
 
-      nameAndTrack.append(trackName, artistName);
+      const previewUrlAudio = document.createElement('audio') as HTMLAudioElement;
+      previewUrlAudio.classList = 'song-audio';
+      previewUrlAudio.src = `${item.previewUrl}`;
+      // previewUrlAudio.controls = true;
+
+      nameAndTrack.append(trackName, artistName, previewUrlAudio);
 
       songContainer?.append(artworkUrl100, nameAndTrack, duration);
 

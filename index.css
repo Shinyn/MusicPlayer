@@ -92,54 +92,56 @@ h1 {
   height: 3rem;
   margin-bottom: 0;
   padding-left: 1rem;
-  border-radius: 5px;
+  border-radius: 2rem;
   border: none;
   margin-inline: 1rem;
 }
 
-.songs-container {
-  .song-container {
-    padding-inline: 0.5rem;
-    padding-block: 0.3rem;
-    margin-inline: 0.5rem;
-    border-radius: 5px;
-    border: solid 1px transparent;
-    display: grid;
-    grid-template-columns: auto auto 1fr;
+/* .songs-container {
+  background-color: teal;
+} */
 
-    &:hover {
-      background-color: #333333;
-      cursor: pointer;
-    }
+.song-container {
+  padding-inline: 0.5rem;
+  padding-block: 0.5rem;
+  margin-inline: 0.5rem;
+  border-radius: 5px;
+  border: solid 1px transparent;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
 
-    .song-duration {
-      display: flex;
-      align-items: center;
-      justify-self: end;
-    }
+  &:hover {
+    background-color: #333333;
+    cursor: pointer;
   }
 
-  .song-artwork {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 5px;
-    margin-right: 0.5rem;
-  }
-
-  .name-and-track-container {
+  .song-duration {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 1rem;
+    align-items: center;
+    justify-self: end;
+  }
+}
 
-    .song-name {
-      font-size: 1.2rem;
-      font-weight: 400;
-    }
+.song-artwork {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+}
 
-    .artist-name {
-      color: #b4b4b4;
-    }
+.name-and-track-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+
+  .song-name {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+
+  .artist-name {
+    color: #b4b4b4;
   }
 }
 
@@ -148,24 +150,23 @@ footer {
   display: grid;
   position: sticky;
   bottom: 0;
-  grid-template-columns: auto 1fr auto;
+  height: auto;
+  grid-template-columns: repeat(3, 1fr);
 
   .music-settings,
   .music-current-song {
-    background-color: var(--clr-grey);
     display: grid;
     place-items: center;
     padding: 1rem;
   }
 
   .music-current-song {
-    background-color: red;
+    display: flex;
   }
 
   .music-player-controls {
     align-self: center;
     justify-content: center;
-    padding: 0.5rem;
     display: flex;
     gap: 3rem;
 
