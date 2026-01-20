@@ -144,11 +144,12 @@ const fetchMusicData = async () => {
 
   if (data) {
     data.results.forEach((item) => {
-      console.log('this is it', item.previewUrl);
+      // console.log('this is it', item.previewUrl);
       const songContainer = document.createElement('div') as HTMLDivElement;
       songContainer.classList = 'song-container';
       songContainer.addEventListener('click', (e) => {
         const musicCurrentSong = document.querySelector('.music-current-song') as HTMLElement;
+
         // -------------------v
         const nameAndTrack = document.createElement('div') as HTMLDivElement;
         nameAndTrack.classList = 'name-and-track-container';
@@ -172,6 +173,7 @@ const fetchMusicData = async () => {
 
         musicCurrentSong.replaceChildren();
         musicCurrentSong.append(artworkUrl100, nameAndTrack);
+        // -------------------^
 
         // The closest() method of the Element interface traverses the element
         // and its parents (heading toward the document root) until it finds a
@@ -184,6 +186,23 @@ const fetchMusicData = async () => {
         });
 
         song.classList.add('active');
+        const previewUrlAudio = document.createElement('audio') as HTMLAudioElement;
+        previewUrlAudio.classList = 'song-audio';
+        previewUrlAudio.src = `${item.previewUrl}`;
+        // previewUrlAudio.controls = true;
+        // Play song ----------------v
+        const playPause = document.querySelector('#playPause');
+        let isPlaying: boolean = false;
+
+        playPause?.addEventListener('click', () => {
+          if (isPlaying) {
+            previewUrlAudio.pause();
+            isPlaying = false;
+          } else {
+            previewUrlAudio.play();
+            isPlaying = true;
+          }
+        });
       });
 
       const nameAndTrack = document.createElement('div') as HTMLDivElement;
@@ -208,12 +227,7 @@ const fetchMusicData = async () => {
         artworkUrl100.alt = `${item.trackName} cover by ${item.artistName}`;
       }
 
-      const previewUrlAudio = document.createElement('audio') as HTMLAudioElement;
-      previewUrlAudio.classList = 'song-audio';
-      previewUrlAudio.src = `${item.previewUrl}`;
-      // previewUrlAudio.controls = true;
-
-      nameAndTrack.append(trackName, artistName, previewUrlAudio);
+      nameAndTrack.append(trackName, artistName);
 
       songContainer?.append(artworkUrl100, nameAndTrack, duration);
 
