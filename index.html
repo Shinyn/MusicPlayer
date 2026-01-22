@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,18 +13,25 @@
   </head>
   <body>
     <h1>Welcome to the music player</h1>
-    <input id="song-search" class="song-search" placeholder="Search.." aria-label="Search"></input>
-    <main class="songs-container">
-      <!-- <article class="song-card"></article> -->
-    </main>
+    <header>
+      <input id="song-search" class="song-search" placeholder="Search.." aria-label="Search" />
+      <button id="create-playlist-button">+</button>
+    </header>
+    <main class="songs-container"></main>
     <footer class="footer">
       <section class="music-current-song"></section>
       <section class="music-player-controls">
-        <button><span class="material-symbols-outlined">skip_previous</span></button>
-        <button><span class="material-symbols-outlined" id="playPause">pause</span></button>
-        <button><span class="material-symbols-outlined">skip_next</span></button>
+        <div class="music-player-buttons">
+          <button id="previous-song"><span class="material-symbols-outlined">skip_previous</span></button>
+          <!-- Ändra play ikon till pause med textContent -->
+          <button id="play-pause"><span class="material-symbols-outlined">pause</span></button>
+          <button id="next-song"><span class="material-symbols-outlined">skip_next</span></button>
+        </div>
+        <input id="song-progress" type="range" min="0" max="100" value="0" />
       </section>
-      <section class="music-settings"></section>
+      <section class="music-settings">
+        <input id="volume-control" type="range" min="0" max="100" value="100" />
+      </section>
     </footer>
   </body>
 </html>

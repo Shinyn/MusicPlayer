@@ -1,6 +1,7 @@
 :root {
   --clr-red: #a01818;
   --clr-grey: #333333;
+  --clr-accent-green: #40dd40;
 }
 *,
 *::before,
@@ -71,12 +72,13 @@ figcaption {
 }
 
 .songs-container .song-container.active .song-name {
-  color: rgb(64, 221, 64);
+  color: var(--clr-accent-green);
 }
 
 body {
   display: grid;
   grid-template-rows: auto auto 1fr 6rem;
+  /* grid-template-columns: auto 1fr; */
   gap: 1rem;
 }
 
@@ -87,16 +89,37 @@ h1 {
   padding: 0.5rem;
 }
 
-#song-search {
-  background-color: var(--clr-grey);
-  height: 3rem;
-  margin-bottom: 0;
-  padding-left: 1rem;
-  border-radius: 2rem;
-  border: none;
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
   margin-inline: 1rem;
-}
+  gap: 1rem;
 
+  #song-search {
+    background-color: var(--clr-grey);
+    height: 3rem;
+    margin-bottom: 0;
+    padding-left: 1rem;
+    border-radius: 2rem;
+    border: none;
+  }
+
+  #create-playlist-button {
+    /* padding: 0.5rem; */
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background-color: var(--clr-grey);
+    transition: all 0.2s ease;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px var(--clr-accent-green) solid;
+      color: var(--clr-accent-green);
+      transform: scale(1.1);
+    }
+  }
+}
 /* .songs-container {
   background-color: teal;
 } */
@@ -150,37 +173,51 @@ footer {
   display: grid;
   position: sticky;
   bottom: 0;
-  height: auto;
+  height: 7rem;
   grid-template-columns: repeat(3, 1fr);
 
   .music-settings,
   .music-current-song {
     display: grid;
     place-items: center;
-    padding: 1rem;
+    /* padding: 1rem; */
   }
 
   .music-current-song {
     display: flex;
+    padding-left: 1rem;
+    /* background-color: red; */
   }
 
   .music-player-controls {
-    align-self: center;
-    justify-content: center;
+    /* background-color: rgb(176, 223, 132); */
     display: flex;
-    gap: 3rem;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
 
-    button {
-      background-color: transparent;
-      border-radius: 50%;
-      padding: 0.5rem;
-      filter: brightness(50%);
-      transition: all 0.2s ease;
-      &:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-        filter: brightness(100%);
+    .music-player-buttons {
+      align-self: center;
+      justify-content: center;
+      display: flex;
+      gap: 3rem;
+
+      button {
+        background-color: transparent;
+        border-radius: 50%;
+        padding: 0.5rem;
+        filter: brightness(50%);
+        transition: all 0.2s ease;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+          filter: brightness(100%);
+        }
       }
     }
   }
+
+  /* .music-settings {
+    background-color: lemonchiffon;
+  } */
 }
