@@ -4,14 +4,14 @@ const audio = new Audio();
 audio.classList = 'song-audio';
 let currentTrackId: number | undefined | null;
 
-export function controls(item: ItunesResult): void {
+export function audioControls(item: ItunesResult): void {
   const volume = document.querySelector('#volume-control') as HTMLInputElement;
   const playPause = document.querySelector('#play-pause');
   let isPlaying: boolean = false;
 
-  audio.addEventListener('ended', () => {
-    // spela nästa i låt listan
-  });
+  // audio.addEventListener('ended', () => {
+  //   spela nästa i låt listan
+  // });
 
   playPause?.addEventListener('click', () => {
     if (currentTrackId !== item.trackId) {

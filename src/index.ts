@@ -9,6 +9,7 @@ searchInput?.addEventListener('input', () => {
   searchTerm = searchInput.value;
 });
 
+// Söker efter input keyword
 searchInput?.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     renderSongs(searchTerm);
